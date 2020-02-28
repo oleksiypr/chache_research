@@ -28,4 +28,5 @@ pretty_print(
         Limit(H/t, t, oo),
         limit(Hits_count/t, t, oo)))
 
+pretty_print(Eq(P, 1 - exp(-lambda_h * t)))
 pretty_print(eq_H.subs(1 - exp(-lambda_h * t), P))
