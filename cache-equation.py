@@ -1,5 +1,4 @@
 from sympy import *
-from sympy.simplify.simplify import sum_simplify
 
 init_printing()
 
