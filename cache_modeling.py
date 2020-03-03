@@ -49,4 +49,11 @@ pretty_print(
         Limit(H/N, N, oo),
         limit(rhs_H/N, N, oo)))
 
+_lambda = symbols('lambda')
+solution_H_t = solution_H.subs({
+    H: Function('H')(t),
+    N: _lambda*t
+})
+pretty_print(solution_H_t)
+
 
