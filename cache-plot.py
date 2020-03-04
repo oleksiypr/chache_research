@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 lambda_h = 1.4/19
 lambda_m = 0.7/20
 lambda_r = lambda_h + lambda_m
+print('Request rate: {0:.2}'.format(lambda_r))
 
 t = np.arange(0., 40., 0.05)
 H = lambda_h * t * (1 - np.exp( - lambda_h*t))
