@@ -28,7 +28,30 @@ pretty_print(diff_eq_H)
 solution_H = dsolve(diff_eq_H, H)
 pretty_print(solution_H)
 
+C1 = solve(solution_H.subs({H: 0, t: 0}), 'C1')[0]
+solution_H = simplify(solution_H.subs('C1', C1))
+pretty_print(solution_H)
+
 _, rhs_H = solution_H.args
 
-pretty_print(rhs_H.diff(t).subs(t, 0))
-pretty_print(limit(rhs_H.diff(t), t, oo))
+der_H = Derivative(H, t)
+pretty_print(simplify(Eq(der_H, rhs_H.diff(t)).subs(t, 0)))
+pretty_print(
+    Eq(
+        Limit(der_H, t, oo),
+        limit(rhs_H.diff(t), t, oo)))
+
+pretty_print(
+    Eq(
+        Limit(H/t, t, oo),
+        limit(rhs_H/t, t, oo)))
+
+pretty_print(simplify(solution_H.subs(t, 0)))
+
+N = Function('N')(t)
+eq_N = Eq(N, S + H)
+pretty_print(eq_N)
+pretty_print(simplify(eq_N.subs({
+    S: rhs_S,
+    H: rhs_H
+})))
