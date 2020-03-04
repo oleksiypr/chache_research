@@ -2,8 +2,6 @@ from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 
-print(datetime(2017, 11, 28, 23, 55))
-
 # date, hits * 1e3, mis * 1e3
 row_data = [
     (datetime(2020, 2, 17, 15, 18),   1,  18),
@@ -26,4 +24,22 @@ row_data = [
     (datetime(2020, 2, 18,  3, 20), 736, 680)
 ]
 
-print(row_data)
+size = len(row_data)
+t0 = row_data[0][0]
+
+
+def to_hours(dt):
+    return dt.days/24 + dt.seconds/3600
+
+
+time = [to_hours(r[0] - t0) for r in row_data]
+hits = [r[1] for r in row_data]
+miss = [r[2] for r in row_data]
+n    = [hits[i] + miss[i] for i in np.arange(size)]
+
+plt.plot(time, hits, 'ro', color = 'b')
+plt.plot(time, miss, 'ro', color = 'g')
+plt.plot(time,    n, 'bs', color = 'r')
+plt.xlabel('time, hours')
+plt.ylabel('count, 10^3')
+plt.show()
