@@ -55,3 +55,12 @@ pretty_print(simplify(eq_N.subs({
     S: rhs_S,
     H: rhs_H
 })))
+
+rhs_another_view_H = \
+    -(_lambda * K0 / (kappa + _lambda)) \
+    + _lambda/(kappa + _lambda)\
+        * K0**(1 + _lambda/kappa)\
+        * (K0 + kappa * t)**(-_lambda / kappa) \
+    + _lambda ** 2 * t / (kappa + _lambda)
+
+assert rhs_H - rhs_another_view_H
