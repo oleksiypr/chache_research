@@ -29,7 +29,7 @@ solution_H = dsolve(diff_eq_H, H)
 pretty_print(solution_H)
 
 C1 = solve(solution_H.subs({H: 0, t: 0}), 'C1')[0]
-solution_H = simplify(solution_H.subs('C1', C1))
+solution_H = product_simplify(solution_H.subs('C1', C1))
 pretty_print(solution_H)
 
 _, rhs_H = solution_H.args
