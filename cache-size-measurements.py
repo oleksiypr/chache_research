@@ -1,6 +1,5 @@
-import numpy as np
-import matplotlib.pyplot as plt
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 N = 1_500_000
 assumed_ttl_days = 4
