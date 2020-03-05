@@ -26,13 +26,15 @@ _, rhs_S = solution_S.args
 diff_eq_H = diff_eq_H.subs(S, rhs_S)
 pretty_print(diff_eq_H)
 solution_H = dsolve(diff_eq_H, H)
-pretty_print(solution_H)
 
 C1 = solve(solution_H.subs({H: 0, t: 0}), 'C1')[0]
 solution_H = product_simplify(solution_H.subs('C1', C1))
 pretty_print(solution_H)
 
 _, rhs_H = solution_H.args
+
+
+# Check H for edge cases:
 
 der_H = Derivative(H, t)
 pretty_print(simplify(Eq(der_H, rhs_H.diff(t)).subs(t, 0)))
@@ -47,6 +49,30 @@ pretty_print(
         limit(rhs_H/t, t, oo)))
 
 pretty_print(simplify(solution_H.subs(t, 0)))
+
+
+# Check S for edge cases:
+
+rhs_another_view_S = \
+    - (_lambda/(kappa + _lambda)) \
+        * K0**(1 + _lambda/kappa) \
+        * (K0 + kappa*t)**(-_lambda/kappa) \
+    + (_lambda/(kappa + _lambda)) * (K0 + kappa*t)
+
+der_S = Derivative(S, t)
+pretty_print(simplify(Eq(der_S, rhs_S.diff(t)).subs(t, 0)))
+pretty_print(
+    Eq(
+        Limit(der_S, t, oo),
+        limit(rhs_S.diff(t), t, oo)))
+
+pretty_print(
+    Eq(
+        Limit(S/t, t, oo),
+        limit(rhs_another_view_S/t, t, oo)))
+
+pretty_print(simplify(solution_S.subs(t, 0)))
+
 
 N = Function('N')(t)
 eq_N = Eq(N, S + H)
@@ -64,13 +90,6 @@ rhs_another_view_H = \
     + _lambda ** 2 * t / (kappa + _lambda)
 
 assert rhs_H - rhs_another_view_H
-
-rhs_another_view_S = \
-    - (_lambda/(kappa + _lambda)) \
-        * K0**(1 + _lambda/kappa) \
-        * (K0 + kappa*t)**(-_lambda/kappa) \
-    + (_lambda/(kappa + _lambda)) * (K0 + kappa*t)
-
 assert rhs_S - rhs_another_view_S
 
 pretty_print(Eq(H, rhs_another_view_H))
