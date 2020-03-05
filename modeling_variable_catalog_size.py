@@ -64,3 +64,14 @@ rhs_another_view_H = \
     + _lambda ** 2 * t / (kappa + _lambda)
 
 assert rhs_H - rhs_another_view_H
+
+rhs_another_view_S = \
+    - (_lambda/(kappa + _lambda)) \
+        * K0**(1 + _lambda/kappa) \
+        * (K0 + kappa*t)**(-_lambda/kappa) \
+    + (_lambda/(kappa + _lambda)) * (K0 + kappa*t)
+
+assert rhs_S - rhs_another_view_S
+
+pretty_print(Eq(H, rhs_another_view_H))
+pretty_print(Eq(S, rhs_another_view_S))
