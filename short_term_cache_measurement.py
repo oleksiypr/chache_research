@@ -29,7 +29,7 @@ t0 = row_data[0][0]
 
 
 def to_hours(dt):
-    return dt.days/24 + dt.seconds/3600
+    return dt.days*24 + dt.seconds/3600
 
 
 time = [to_hours(r[0] - t0) for r in row_data]
