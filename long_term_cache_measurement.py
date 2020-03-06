@@ -20,7 +20,7 @@ row_data = [
     (datetime(2020, 2, 19,  6, 0), 2698, 1551),
     (datetime(2020, 2, 19,  8, 0), 2935, 1596),
     (datetime(2020, 2, 19, 10, 0), 3094, 1629),
-    (datetime(2020, 2, 19, 12, 0), 2201, 1678),
+    (datetime(2020, 2, 19, 12, 0), 3301, 1678),
     (datetime(2020, 2, 19, 14, 0), 3550, 1781),
     (datetime(2020, 2, 19, 16, 0), 3673, 1856),
     (datetime(2020, 2, 19, 18, 0), 3818, 1967),
@@ -38,5 +38,21 @@ row_data = [
 size = len(row_data)
 t0 = row_data[0][0]
 
-for x in range(0, 24, 2):
-    print(x)
+
+def to_hours(dt):
+    return dt.days/24 + dt.seconds/3600
+
+
+time = [to_hours(r[0] - t0) for r in row_data]
+hits = [r[1] for r in row_data]
+miss = [r[2] for r in row_data]
+n    = [hits[i] + miss[i] for i in np.arange(size)]
+
+time = range(size)
+plt.plot(time, hits, 'ro', color = 'b')
+plt.plot(time, miss, 'ro', color = 'g')
+plt.plot(time,    n, 'bs', color = 'r')
+
+plt.xlabel('time, hours')
+plt.ylabel('count, 10^3')
+plt.show()
