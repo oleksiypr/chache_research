@@ -44,8 +44,8 @@ def to_hours(dt):
 
 
 time = [to_hours(r[0] - t0) for r in row_data]
-hits = [r[1] for r in row_data]
-miss = [r[2] for r in row_data]
+hits = [r[1] / 1000.0 for r in row_data]
+miss = [r[2] / 1000.0 for r in row_data]
 n    = [hits[i] + miss[i] for i in np.arange(size)]
 
 plt.plot(time, hits, 'ro', color = 'b')
@@ -53,5 +53,5 @@ plt.plot(time, miss, 'ro', color = 'g')
 plt.plot(time,    n, 'bs', color = 'r')
 
 plt.xlabel('time, hours')
-plt.ylabel('count, 10^3')
+plt.ylabel('count, 10^6')
 plt.show()
