@@ -12,16 +12,15 @@ lambda_s_start = 0.3797, S_star_0 =  0.189
 lambda_n       = 1.109,  n_0      =  0.019
 """
 
-lambda_h_start = 0.7327
-H_star_0       = 0.189
-
-lambda_s_start = 0.3797
-# S_star_0       = 0.189
-
+lambda_h_start = 0.749
+lambda_s_start = 0.360
 print("lambda_h_start + lambda_s_start: lambda = {0:.4}".format(lambda_h_start + lambda_s_start))
 
 lmbd = 1.109
 lambda_n = lmbd
+
+H_star_0 = 0.25
+S_star_0 = 0.189
 
 eq_h_star = Eq(lambda_h_start, lambda_n**2 / (kappa + lambda_n))
 h_star_kappa = solve(eq_h_star, kappa)[0]
@@ -129,7 +128,7 @@ plt.plot(t, hits + miss)
 plt.plot(time, hits_data, 'ro', color ='b')
 plt.plot(time, miss_data, 'ro', color ='g')
 
-plt.xlim(left   =  0.0, right = 2)
-plt.ylim(bottom = -0.5, top   = 1)
+plt.xlim(left   =  0.0, right = 4)
+plt.ylim(bottom = -0.5, top   = 3)
 
 plt.show()
