@@ -109,8 +109,11 @@ plt.plot(time, [lambda_h_start_0 * t + H_star_0 for t in time])
 plt.plot(time, [lambda_s_start_0 * t + S_star_0 for t in time])
 plt.plot(time, [lambda_n * t + n_0 for t in time])
 
-plt.xlim(left   =  0.0)
-plt.ylim(bottom = -0.5)
+# plt.xlim(left   =  0.0)
+# plt.ylim(bottom = -0.5)
+
+plt.xlim(left   =  0.0, right = 4)
+plt.ylim(bottom = -0.5, top   = 3)
 
 plt.xlabel('time, 10 hours')
 plt.ylabel('count, 10^6')
