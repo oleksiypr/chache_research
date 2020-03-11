@@ -24,7 +24,8 @@ short_term_raw_data = [
     (datetime(2020, 2, 18,  1, 20), 566, 616),
     (datetime(2020, 2, 18,  2, 10), 646, 644),
     (datetime(2020, 2, 18,  3, 20), 736, 680),
-    (datetime(2020, 2, 18,  4, 0),  774, 711)
+    (datetime(2020, 2, 18,  4, 0),  774, 711),
+    (datetime(2020, 2, 18,  5, 0),  817, 731)
 ]
 
 # date, hits * 1e3, mis * 1e3
@@ -36,9 +37,11 @@ long_term_raw_data = [
     (datetime(2020, 2, 18, 14, 0), 1490, 1043),
     (datetime(2020, 2, 18, 16, 0), 1632, 1117),
     (datetime(2020, 2, 18, 18, 0), 1766, 1219),
+    (datetime(2020, 2, 18, 19, 0), 1838, 1273),
     (datetime(2020, 2, 18, 20, 0), 1921, 1320),
     (datetime(2020, 2, 18, 22, 0), 2049, 1378),
     (datetime(2020, 2, 19,  0, 0), 2229, 1438),
+    (datetime(2020, 2, 19,  1, 0), 2294, 1457),
     (datetime(2020, 2, 19,  2, 0), 2388, 1484)]
 
 ''' below cache size exeeds
@@ -69,7 +72,7 @@ size            = short_term_size + long_term_size
 
 raw_data = short_term_raw_data + long_term_raw_data
 
-t0 = datetime(2020, 2, 17, 15,  9)
+t0 = datetime(2020, 2, 17, 15, 8, 30)
 
 
 def to_hours(dt):

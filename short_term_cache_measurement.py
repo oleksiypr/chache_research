@@ -26,7 +26,7 @@ short_term_raw_data = [
 ]
 
 size = len(short_term_raw_data)
-t0 = datetime(2020, 2, 17, 15,  9)
+t0 = datetime(2020, 2, 17, 15, 8, 30)
 
 
 def to_hours(dt):
