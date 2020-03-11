@@ -6,7 +6,7 @@ from sympy import pretty_print, init_printing
 init_printing()
 
 # date, hits * 1e3, mis * 1e3
-row_data = [
+long_term_raw_data = [
     (datetime(2020, 2, 18,  4, 0),  774,  711),
     (datetime(2020, 2, 18,  6, 0),  878,  757),
     (datetime(2020, 2, 18,  8, 0), 1036,  826),
@@ -42,17 +42,18 @@ row_data = [
 ]
 '''
 
-size = len(row_data)
+long_term_size = len(long_term_raw_data)
 t0 = datetime(2020, 2, 17, 15, 18)
+
 
 def to_hours(dt):
     return dt.days*24 + dt.seconds/3600
 
 
-time = [to_hours(r[0] - t0)/10.0 for r in row_data]
-hits = [r[1]/1000.0 for r in row_data]
-miss = [r[2]/1000.0 for r in row_data]
-n    = [hits[i] + miss[i] for i in np.arange(size)]
+time = [to_hours(r[0] - t0) / 10.0 for r in long_term_raw_data]
+hits = [r[1] / 1000.0 for r in long_term_raw_data]
+miss = [r[2] / 1000.0 for r in long_term_raw_data]
+n    = [hits[i] + miss[i] for i in np.arange(long_term_size)]
 
 A = np.vstack([time, np.ones(len(time))]).T
 lambda_h_start_0, H_star_0 = np.linalg.lstsq(A, hits, rcond=None)[0]
@@ -60,11 +61,11 @@ print("lambda_h_start_0 = {0:.4}, H_star_0 = {1:.2}".format(lambda_h_start_0, H_
 
 A = np.vstack([time, np.ones(len(time))]).T
 lambda_s_start_0, S_star_0 = np.linalg.lstsq(A, miss, rcond=None)[0]
-print("lambda_s_start_0 = {0:.4}, S_star_0 = {1:.2}".format(lambda_s_start_0, S_star_0))
+print("lambda_s_start_0 = {0:.4}, S_star_0 =  {1:.2}".format(lambda_s_start_0, S_star_0))
 
 A = np.vstack([time, np.ones(len(time))]).T
 lambda_n, n_0 = np.linalg.lstsq(A, n, rcond=None)[0]
-print("lambda_n = {0:.4}, n_0 = {1:.2}".format(lambda_n, n_0))
+print("lambda_n         = {0:.4},  n_0 =       {1:.2}".format(lambda_n, n_0))
 
 time_origin = [0.0] + time
 

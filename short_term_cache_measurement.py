@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # date, hits * 1e3, mis * 1e3
-row_data = [
+short_term_raw_data = [
     (datetime(2020, 2, 17, 15, 18),   1,  18),
     (datetime(2020, 2, 17, 15, 30),   4,  42),
     (datetime(2020, 2, 17, 16,  0),   8,  72),
@@ -24,17 +24,17 @@ row_data = [
     (datetime(2020, 2, 18,  3, 20), 736, 680)
 ]
 
-size = len(row_data)
-t0 = row_data[0][0]
+size = len(short_term_raw_data)
+t0 = short_term_raw_data[0][0]
 
 
 def to_hours(dt):
     return dt.days*24 + dt.seconds/3600
 
 
-time = [to_hours(r[0] - t0)/10.0 for r in row_data]
-hits = [r[1]/1000.0 for r in row_data]
-miss = [r[2]/1000.0 for r in row_data]
+time = [to_hours(r[0] - t0) / 10.0 for r in short_term_raw_data]
+hits = [r[1] / 1000.0 for r in short_term_raw_data]
+miss = [r[2] / 1000.0 for r in short_term_raw_data]
 n    = [hits[i] + miss[i] for i in np.arange(size)]
 
 plt.plot(time, hits, 'ro', color = 'b')
