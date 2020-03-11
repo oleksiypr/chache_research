@@ -1,5 +1,4 @@
 from datetime import datetime
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -104,6 +103,15 @@ print("lambda_n         = {0:.4},  n_0      =  {1:.3}".format(lambda_n, n_0))
 plt.plot(time, hits, 'ro', color ='b')
 plt.plot(time, miss, 'ro', color ='g')
 plt.plot(time, n,    'bs', color ='r')
+
+"""
+dH = 0.05
+H_star_0 = H_star_0 - dH
+S_star_0 = S_star_0 + dH
+"""
+
+print("corrected H_star_0 = {0:.3}".format(H_star_0))
+print("corrected S_star_0 = {0:.3}".format(S_star_0))
 
 plt.plot(time, [lambda_h_start_0 * t + H_star_0 for t in time])
 plt.plot(time, [lambda_s_start_0 * t + S_star_0 for t in time])
