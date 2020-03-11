@@ -12,14 +12,14 @@ lambda_s_start = 0.3797, S_star_0 =  0.189
 lambda_n       = 1.109,  n_0      =  0.019
 """
 
-lambda_h_start = 0.749
-lambda_s_start = 0.360
+lambda_h_start = 0.752
+lambda_s_start = 0.357
 print("lambda_h_start + lambda_s_start: lambda = {0:.4}".format(lambda_h_start + lambda_s_start))
 
 lmbd = 1.109
 lambda_n = lmbd
 
-H_star_0 = 0.25
+H_star_0 = 0.27
 S_star_0 = 0.189
 
 eq_h_star = Eq(lambda_h_start, lambda_n**2 / (kappa + lambda_n))
@@ -117,13 +117,10 @@ time = [to_hours(r[0] - t0) / 10.0 for r in raw_data]
 hits_data = [r[1] / 1000.0 for r in raw_data]
 miss_data = [r[2] / 1000.0 for r in raw_data]
 
-t = np.arange(0., 3., 0.05)
-hits = calc_hits(t)
-miss = calc_miss(t)
 
-plt.plot(t, hits)
-plt.plot(t, miss)
-plt.plot(t, hits + miss)
+plt.plot(time, [calc_hits(t) for t in time])
+plt.plot(time, [calc_miss(t) for t in time])
+plt.plot(time, [calc_hits(t) + calc_miss(t) for t in time])
 
 plt.plot(time, hits_data, 'ro', color ='b')
 plt.plot(time, miss_data, 'ro', color ='g')
