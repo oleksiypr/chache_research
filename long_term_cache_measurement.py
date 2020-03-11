@@ -54,20 +54,17 @@ hits = [r[1]/1000.0 for r in row_data]
 miss = [r[2]/1000.0 for r in row_data]
 n    = [hits[i] + miss[i] for i in np.arange(size)]
 
-A = np.vstack([time, np.ones(len(hits))]).T
+A = np.vstack([time, np.ones(len(time))]).T
 lambda_h_start_0, H_star_0 = np.linalg.lstsq(A, hits, rcond=None)[0]
-print(lambda_h_start_0)
-print(H_star_0)
+print("lambda_h_start_0 = {0:.4}, H_star_0 = {1:.2}".format(lambda_h_start_0, H_star_0))
 
-A = np.vstack([time, np.ones(len(hits))]).T
+A = np.vstack([time, np.ones(len(time))]).T
 lambda_s_start_0, S_star_0 = np.linalg.lstsq(A, miss, rcond=None)[0]
-print(lambda_s_start_0)
-print(S_star_0)
+print("lambda_s_start_0 = {0:.4}, S_star_0 = {1:.2}".format(lambda_s_start_0, S_star_0))
 
-A = np.vstack([time, np.ones(len(hits))]).T
+A = np.vstack([time, np.ones(len(time))]).T
 lambda_n, n_0 = np.linalg.lstsq(A, n, rcond=None)[0]
-print(lambda_n)
-print(n_0)
+print("lambda_n = {0:.4}, n_0 = {1:.2}".format(lambda_n, n_0))
 
 time_origin = [0.0] + time
 
@@ -79,8 +76,8 @@ plt.plot(time_origin, [lambda_h_start_0 * t + H_star_0 for t in time_origin])
 plt.plot(time_origin, [lambda_s_start_0 * t + S_star_0 for t in time_origin])
 plt.plot(time_origin, [lambda_n * t + n_0 for t in time_origin])
 
-plt.xlim(left   = 0.0)
-plt.ylim(bottom = 0.0)
+plt.xlim(left   =  0.0)
+plt.ylim(bottom = -0.5)
 
 plt.xlabel('time, 10 hours')
 plt.ylabel('count, 10^6')
