@@ -1,12 +1,11 @@
 from datetime import datetime
-import numpy as np
-import matplotlib.pyplot as plt
-from sympy import pretty_print, init_printing
 
-init_printing()
+import matplotlib.pyplot as plt
+import numpy as np
 
 # date, hits * 1e3, mis * 1e3
 short_term_raw_data = [
+    (datetime(2020, 2, 17, 15,  9),   0,   1),
     (datetime(2020, 2, 17, 15, 18),   1,  18),
     (datetime(2020, 2, 17, 15, 30),   4,  42),
     (datetime(2020, 2, 17, 16,  0),   8,  72),
@@ -24,12 +23,12 @@ short_term_raw_data = [
     (datetime(2020, 2, 18,  0, 30), 535, 593),
     (datetime(2020, 2, 18,  1, 20), 566, 616),
     (datetime(2020, 2, 18,  2, 10), 646, 644),
-    (datetime(2020, 2, 18,  3, 20), 736, 680)
+    (datetime(2020, 2, 18,  3, 20), 736, 680),
+    (datetime(2020, 2, 18,  4, 0),  774, 711)
 ]
 
 # date, hits * 1e3, mis * 1e3
 long_term_raw_data = [
-    (datetime(2020, 2, 18,  4, 0),  774,  711),
     (datetime(2020, 2, 18,  6, 0),  878,  757),
     (datetime(2020, 2, 18,  8, 0), 1036,  826),
     (datetime(2020, 2, 18, 10, 0), 1231,  901),
@@ -70,7 +69,7 @@ size            = short_term_size + long_term_size
 
 raw_data = short_term_raw_data + long_term_raw_data
 
-t0 = datetime(2020, 2, 17, 15, 18)
+t0 = datetime(2020, 2, 17, 15,  9)
 
 
 def to_hours(dt):
@@ -89,24 +88,23 @@ n    = [hits[i] + miss[i] for i in np.arange(size)]
 
 A = np.vstack([long_term_time, np.ones(len(long_term_time))]).T
 lambda_h_start_0, H_star_0 = np.linalg.lstsq(A, long_term_hits, rcond=None)[0]
-print("lambda_h_start_0 = {0:.4}, H_star_0 = {1:.2}".format(lambda_h_start_0, H_star_0))
+print("lambda_h_start_0 = {0:.4}, H_star_0 = {1:.3}".format(lambda_h_start_0, H_star_0))
 
 A = np.vstack([long_term_time, np.ones(len(long_term_time))]).T
 lambda_s_start_0, S_star_0 = np.linalg.lstsq(A, long_term_miss, rcond=None)[0]
-print("lambda_s_start_0 = {0:.4}, S_star_0 =  {1:.2}".format(lambda_s_start_0, S_star_0))
+print("lambda_s_start_0 = {0:.4}, S_star_0 =  {1:.3}".format(lambda_s_start_0, S_star_0))
 
 A = np.vstack([time, np.ones(len(time))]).T
 lambda_n, n_0 = np.linalg.lstsq(A, n, rcond=None)[0]
-print("lambda_n         = {0:.4},  n_0      =  {1:.2}".format(lambda_n, n_0))
+print("lambda_n         = {0:.4},  n_0      =  {1:.3}".format(lambda_n, n_0))
 
 plt.plot(time, hits, 'ro', color ='b')
 plt.plot(time, miss, 'ro', color ='g')
-plt.plot(time, n, 'bs', color ='r')
+plt.plot(time, n,    'bs', color ='r')
 
-time_origin = [0.0] + long_term_time
-plt.plot(time_origin, [lambda_h_start_0 * t + H_star_0 for t in time_origin])
-plt.plot(time_origin, [lambda_s_start_0 * t + S_star_0 for t in time_origin])
-plt.plot(time_origin, [lambda_n * t + n_0 for t in time_origin])
+plt.plot(time, [lambda_h_start_0 * t + H_star_0 for t in time])
+plt.plot(time, [lambda_s_start_0 * t + S_star_0 for t in time])
+plt.plot(time, [lambda_n * t + n_0 for t in time])
 
 plt.xlim(left   =  0.0)
 plt.ylim(bottom = -0.5)

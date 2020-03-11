@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 # date, hits * 1e3, mis * 1e3
 short_term_raw_data = [
+    (datetime(2020, 2, 17, 15,  9),   0,   1),
     (datetime(2020, 2, 17, 15, 18),   1,  18),
     (datetime(2020, 2, 17, 15, 30),   4,  42),
     (datetime(2020, 2, 17, 16,  0),   8,  72),
@@ -25,7 +26,7 @@ short_term_raw_data = [
 ]
 
 size = len(short_term_raw_data)
-t0 = short_term_raw_data[0][0]
+t0 = datetime(2020, 2, 17, 15,  9)
 
 
 def to_hours(dt):
