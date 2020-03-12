@@ -12,15 +12,15 @@ lambda_s_start = 0.3797, S_star_0 =  0.189
 lambda_n       = 1.109,  n_0      =  0.019
 """
 
-lambda_h_start = 0.752
-lambda_s_start = 0.357
+lambda_h_start = 0.7327
+lambda_s_start = 0.3797
 print("lambda_h_start + lambda_s_start: lambda = {0:.4}".format(lambda_h_start + lambda_s_start))
 
-lmbd = 1.109
+lmbd = 1.11
 lambda_n = lmbd
 
-H_star_0 = 0.27
-S_star_0 = 0.189
+H_star_0 = 0.19
+S_star_0 = 0.19
 
 eq_h_star = Eq(lambda_h_start, lambda_n**2 / (kappa + lambda_n))
 h_star_kappa = solve(eq_h_star, kappa)[0]
@@ -76,6 +76,9 @@ raw_data = [
     (datetime(2020, 2, 19,  2, 0), 2388, 1484)]
 
 
+size = len(raw_data)
+
+
 def to_hours(dt):
     return dt.days*24 + dt.seconds/3600
 
@@ -99,8 +102,8 @@ func_S = lambdify([t, lambda_n, kappa, K0], S)
 
 
 lambda_n = lmbd
-kappa    = h_star_kappa
-K0       = K0_H0_h_star_K0
+kappa    = 0.50 # 10^6 / 10 hours
+K0       = 0.40 # 10^6
 
 def calc_hits(t):
     return func_H(t, lambda_n, kappa, K0)
@@ -116,6 +119,7 @@ t0 = datetime(2020, 2, 17, 15, 8, 30)
 time = [to_hours(r[0] - t0) / 10.0 for r in raw_data]
 hits_data = [r[1] / 1000.0 for r in raw_data]
 miss_data = [r[2] / 1000.0 for r in raw_data]
+n         = [hits_data[i] + miss_data[i] for i in np.arange(size)]
 
 
 plt.plot(time, [calc_hits(t) for t in time])
@@ -124,8 +128,12 @@ plt.plot(time, [calc_hits(t) + calc_miss(t) for t in time])
 
 plt.plot(time, hits_data, 'ro', color ='b')
 plt.plot(time, miss_data, 'ro', color ='g')
+plt.plot(time, n,         'bs', color ='r')
 
 plt.xlim(left   =  0.0, right = 4)
 plt.ylim(bottom = -0.5, top   = 3)
+
+plt.xlabel('time, 10 hours')
+plt.ylabel('count, 10^6')
 
 plt.show()

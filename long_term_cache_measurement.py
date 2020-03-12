@@ -100,6 +100,7 @@ A = np.vstack([time, np.ones(len(time))]).T
 lambda_n, n_0 = np.linalg.lstsq(A, n, rcond=None)[0]
 print("lambda_n         = {0:.4},  n_0      =  {1:.3}".format(lambda_n, n_0))
 print("lambda_h_start + lambda_s_start = {0:.4}".format(lambda_h_start_0 + lambda_s_start_0))
+print("H_start_0 + S_start_0 = {0:.3}".format(H_star_0 + S_star_0))
 
 plt.plot(time, hits, 'ro', color ='b')
 plt.plot(time, miss, 'ro', color ='g')
