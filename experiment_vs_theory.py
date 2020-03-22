@@ -102,8 +102,8 @@ func_S = lambdify([t, lambda_n, kappa, K0], S)
 
 
 lambda_n = lmbd
-kappa    = 0.50 # 10^6 / 10 hours
-K0       = 0.40 # 10^6
+kappa    = 0.46 # 10^6 / 10 hours
+K0       = 0.48 # 10^6
 
 def calc_hits(t):
     return func_H(t, lambda_n, kappa, K0)
